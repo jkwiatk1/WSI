@@ -13,18 +13,18 @@ Dla zadanej funkcji należało znaleźć minima lokalne i globalne lub w przypad
 ```python
     x <- x_0
     while !stop
-    d <- grad_q(x)
-    x <- x+B_t * d
+        d <- grad_q(x)
+        x <- x+B_t * d
 ```
 
 * Newton Method
 ```python
     x <- x_0
     while !stop
-    d <-  inv_hess_q(x) * grad_q(x)
-    x <- x+B_t * d  
-    inv_hess - odwrotność hesjanu 
-    grad - gradient 
+        d <-  inv_hess_q(x) * grad_q(x)
+        x <- x+B_t * d  
+        inv_hess - odwrotność hesjanu 
+        grad - gradient 
 
 ```
 
