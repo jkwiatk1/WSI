@@ -13,8 +13,8 @@ def stochastic_gradient_descent(x,y, learning_rate = 0.01, max_iter=1000, eps=1e
     iter_num = 0
     for i in range(max_iter):
         df_dx, df_dy = grad_f(x, y)
-        x = x + learning_rate * df_dx
-        y = y + learning_rate * df_dy
+        x = x - learning_rate * df_dx
+        y = y - learning_rate * df_dy
         iter_num += 1
         gradient_norm = math.sqrt(df_dx ** 2 + df_dy ** 2)
         if gradient_norm < eps:
