@@ -1,3 +1,8 @@
+'''
+WSI Laboratorium 1
+@author Jan Kwiatkowski
+'''
+
 import matplotlib.pyplot as plt
 import numpy as np
 

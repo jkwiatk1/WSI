@@ -1,3 +1,8 @@
+'''
+WSI Laboratorium 1
+@author Jan Kwiatkowski
+'''
+
 from unittest import TestCase
 import autograd.numpy as np
 from autograd import grad, hessian

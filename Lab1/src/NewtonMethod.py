@@ -1,3 +1,8 @@
+'''
+WSI Laboratorium 1
+@author Jan Kwiatkowski
+'''
+
 # Newton's Method
 import numpy as np
 import  math

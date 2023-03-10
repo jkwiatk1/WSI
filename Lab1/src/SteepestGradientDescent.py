@@ -1,3 +1,8 @@
+'''
+WSI Laboratorium 1
+@author Jan Kwiatkowski
+'''
+
 # Stochastic Gradient Descent
 import math
 

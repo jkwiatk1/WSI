@@ -1,3 +1,7 @@
+'''
+WSI Laboratorium 1
+@author Jan Kwiatkowski
+'''
 import random
 import time
 import gc
