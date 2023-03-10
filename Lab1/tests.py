@@ -14,8 +14,8 @@ workIters_NM = []
 
 experimentSize = 25
 Beta = 0.01
-MaxIter = 1000
-Eps = 1e-5
+MaxIter = 100000
+Eps = 1e-12
 
 def SGD_timeCount(x0,y0):
     gc_old = gc.isenabled()  # pobierz aktualny stan odśmiecania
@@ -36,6 +36,7 @@ def SGD_timeCount(x0, y0):
     time_list = stop-start
     if gc_old: gc.enable() # przywróć pierwotny stan odśmiecania
     return xminNM, yminNM, fminNM, iterNumNM, time_list
+
 
 for i in range(experimentSize):
     x0 = random.uniform(-5, 5)
