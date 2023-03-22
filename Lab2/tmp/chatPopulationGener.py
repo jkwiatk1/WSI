@@ -1,5 +1,7 @@
 import random
 
+edges = [(0, 2), (0, 4), (0, 7), (1, 3), (1, 5), (1, 7), (2, 4), (2, 5), (3, 6), (5, 7)]
+
 def generate_individual(n, min_lights=1, max_lights=None):
     # Generowanie losowego wektora binarnego reprezentującego pojedyncze rozwiązanie
     if max_lights is None:

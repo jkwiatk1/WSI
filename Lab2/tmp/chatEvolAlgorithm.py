@@ -23,6 +23,22 @@ def fitness(individual):
 # Tworzenie populacji początkowej
 population_size = 100
 population = [random.sample(range(num_vertices + 1), random.randint(1, num_vertices)) for _ in range(population_size)]
+''' to co wyzej ale normalnie napisane wyglada tak
+# Generowanie losowych pokryć wierzchołkowych
+population = []
+for _ in range(population_size):
+    # Losowa liczba wierzchołków w pokryciu wierzchołkowym
+    cover_size = random.randint(1, num_vertices)
+    
+    # Losowe wybieranie wierzchołków do pokrycia
+    cover_vertices = random.sample(range(num_vertices + 1), cover_size)
+    
+    # Dodawanie pokrycia wierzchołkowego do populacji
+    population.append(cover_vertices)
+
+# Wyświetlenie wygenerowanej populacji
+print(population)
+'''
 
 # Algorytm ewolucyjny
 num_generations = 1000
@@ -78,3 +94,4 @@ def visualize_graph(graph):
 graph = nx.Graph()
 graph.add_edges_from(edges)
 visualize_graph(graph)
+
