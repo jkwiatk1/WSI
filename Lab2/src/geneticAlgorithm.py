@@ -3,10 +3,11 @@
 import random
 
 num_vertices = 7
-population_size = 100
+# population_size = 100
 random.seed(123)
 
 edges = [(0, 2), (0, 4), (0, 7), (1, 3), (1, 5), (1, 7), (2, 4), (2, 5), (3, 6), (5, 7)]
+nodes = [0,1,2,3,4,5,6,7]
 
 '''
 Tworzy losową populację początkową
@@ -22,9 +23,10 @@ def generate_individual(n, min_lights=1, max_lights=None):
     individual = [1 if i in lights else 0 for i in range(n)]
     return individual
 
-def generate_population(population_size, n, min_lights=1, max_lights=None):
+def generate_population(population_size, nodes, min_lights=1, max_lights=None):
     # Generowanie populacji losowych wektorów binarnych
-    population = [generate_individual(n, min_lights, max_lights) for i in range(population_size)]
+    nodesLenght = len(nodes)
+    population = [generate_individual(nodesLenght, min_lights, max_lights) for i in range(population_size)]
     return population
 
 def calculate_fitness(individual, graph):
@@ -46,8 +48,7 @@ def calculate_fitness(individual, graph):
 
 # Generowanie populacji o rozmiarze 25
 population_size = 5
-nodesLenght = max(max(edges))
-population = generate_population(population_size, nodesLenght)
+population = generate_population(population_size, nodes)
 
 # Obliczanie wartości funkcji przystosowania dla każdego osobnika w populacji
 for individual in population:
