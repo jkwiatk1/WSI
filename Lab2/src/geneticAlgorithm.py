@@ -62,11 +62,9 @@ class GeneticAlgorithm:
         fitness_scores = self.calculate_fitness_for_all(population)
 
         for generation in range(num_generations):
-
             Tt = self.tournament_selection(population, fitness_scores, 2, len(population))
 
             next_generation = Tt.copy()
-            # Mutacja
             for individual in Tt:
                 if random.random() < mutation_probability:
                     mutated_individual = self.mutation(individual, mutation_probability)
@@ -79,6 +77,7 @@ class GeneticAlgorithm:
             population = [Tt[i] for i in elite_indices]
 
         print(population)
+        print(fitness_scores)
 
         # # Wybór najlepszego osobnika
         best_individual = max(population, key=lambda individual: self.calculate_fitness(individual, self.edges))
@@ -87,9 +86,4 @@ class GeneticAlgorithm:
 
 
 
-
-algorithmInit = GeneticAlgorithm(edges= edges1, nodes= nodes1, population_size = 5, tournament_size= 2, selection_size = 2, mutation_rate = 0.01)
-
-best = algorithmInit.genetic_algorithm(num_generations = 1000, mutation_probability = 0.01)
-print(best)
 
