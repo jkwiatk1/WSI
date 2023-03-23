@@ -7,132 +7,87 @@ num_vertices = 7
 # population_size = 100
 # random.seed(123)
 
-edges = [(0, 2), (0, 4), (0, 7), (1, 3), (1, 5), (1, 7), (2, 4), (2, 5), (3, 6), (5, 7)]
-nodes = [0,1,2,3,4,5,6,7]
+edges1 = [(0, 2), (0, 4), (0, 7), (1, 3), (1, 5), (1, 7), (2, 4), (2, 5), (3, 6), (5, 7)]
+edges = [(0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10), (0, 11), (0, 12), (0, 13), (0, 14), (0, 15), (0, 16), (0, 17), (0, 18), (0, 19), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), (1, 11), (1, 12), (1, 13), (1, 14), (1, 15), (1, 16), (1, 17), (1, 18), (1, 19), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7), (2, 8), (2, 9), (2, 10), (2, 11), (2, 12), (2, 13), (2, 14), (2, 15), (2, 16), (2, 17), (2, 18), (2, 19), (3, 4), (3, 5), (3, 6), (3, 7), (3, 8), (3, 9), (3, 10), (3, 11), (3, 12), (3, 13), (3, 14), (3, 15), (3, 16), (3, 17), (3, 18), (3, 19), (4, 5), (4, 6), (4, 7), (4, 8), (4, 9), (4, 10), (4, 11), (4, 12), (4, 13), (4, 14), (4, 15), (4, 16), (4, 17), (4, 18), (4, 19), (5, 6), (5, 7), (5, 8), (5, 9), (5, 10), (5, 11), (5, 12), (5, 13), (5, 14), (5, 15), (5, 16), (5, 17), (5, 18), (5, 19), (6, 7), (6, 8), (6, 9), (6, 10), (6, 11), (6, 12), (6, 13), (6, 14), (6, 15), (6, 16), (6, 17), (6, 18), (6, 19), (7, 8), (7, 9), (7, 10), (7, 11), (7, 12), (7, 13), (7, 14), (7, 15), (7, 16), (7, 17), (7, 18), (7, 19), (8, 9), (8, 10), (8, 11), (8, 12), (8, 13), (8, 14), (8, 15), (8, 16), (8, 17), (8, 18), (8, 19), (9, 10), (9, 11), (9, 12), (9, 13), (9, 14), (9, 15), (9, 16), (9, 17), (9, 18), (9, 19), (10, 11), (10, 12), (10, 13), (10, 14), (10, 15), (10, 16), (10, 17), (10, 18), (10, 19), (11, 12), (11, 13), (11, 14), (11, 15), (11, 16), (11, 17), (11, 18), (11, 19), (12, 13), (12, 14), (12, 15), (12, 16), (12, 17), (12, 18), (12, 19), (13, 14), (13, 15), (13, 16), (13, 17), (13, 18), (13, 19), (14, 15), (14, 16), (14, 17), (14, 18), (14, 19), (15, 16), (15, 17), (15, 18), (15, 19), (16, 17), (16, 18), (16, 19), (17, 18), (17, 19), (18, 19)]
+
+nodes = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 
 
-'''
-Ocena populacji (Funkcja przystosowania): 
-dla każdego zbioru wierzchołków z populacji oblicz liczbę krawędzi grafu, 
-które są pokryte przez ten zbiór wierzchołków.
-'''
-def calculate_fitness(individual, graph):
-    '''
-    # Obliczanie liczby pokrytych krawędzi
-    # Iteracja po krawędziach grafu
-    '''
+class GeneticAlgorithm:
+    def __init__(self,  population_size, tournament_size, selection_size, mutation_rate):
+        self.population_size = population_size
+        self.tournament_size = tournament_size
+        self.selection_size = selection_size
+        self.mutation_rate = mutation_rate
 
-    fitness = sum(1 for edge in graph if individual[edge[0]] or individual[edge[1]])
-    return fitness
+    def calculate_fitness(self,individual, graph):
+        fitness = sum(1 for edge in graph if individual[edge[0]] or individual[edge[1]])
+        return fitness
+
+    def calculate_fitness_for_all(self, population):
+        fitness_for_all = []
+        for individual in population:
+            fitness = self.calculate_fitness(individual, edges)
+            fitness_for_all.append(fitness)
+        return  fitness_for_all
 
 
-'''
-Selekcja: wybierz najlepsze rozwiązania z populacji (np. najlepsze K osobników według wartości funkcji celu dlatego wywolujemy N razy).
-'''
-# def tournament_selection(population, fitness, tournament_size):
-#     indices = random.sample(range(len(population)), tournament_size)
-#     tournament_population = [population[i] for i in indices]
-#     tournament_fitness = [fitness[i] for i in indices]
-#     index = tournament_fitness.index(min(tournament_fitness))
-#     return tournament_population[index]
+    def tournament_selection(self,population, fitness_scores, tournament_size, selection_size):
+        selected_indices = []
+        for i in range(selection_size):
+            tournament_indices = random.sample(range(len(population)), tournament_size)
+            tournament_fitnesses = [fitness_scores[index] for index in tournament_indices]
+            best_index = tournament_indices[tournament_fitnesses.index(max(tournament_fitnesses))]
+            selected_indices.append(best_index)
+        selected_population = [population[i] for i in selected_indices]
+        return selected_population
 
-def tournament_selection(population, fitness_scores, tournament_size, selection_size):
-    selected_indices = []
-    for i in range(selection_size):
-        tournament_indices = random.sample(range(len(population)), tournament_size)
-        tournament_fitnesses = [fitness_scores[index] for index in tournament_indices]
-        best_index = tournament_indices[tournament_fitnesses.index(max(tournament_fitnesses))]
-        selected_indices.append(best_index)
-    selected_population = [population[i] for i in selected_indices]
-    return selected_population
-'''
- Selekcja turniejowa polega na losowym wyborze kilku osobników z populacji i wybraniu z nich najlepszego jako jednego z rodziców do utworzenia nowego osobnika. Ten proces jest powtarzany kilka razy, aby wybrać drugiego rodzica.
-Funkcja ta przyjmuje cztery argumenty: populację, wyniki funkcji przystosowania dla każdego osobnika w populacji, rozmiar turnieju oraz rozmiar docelowej populacji selekcji. 
-Zwraca populację wybranych osobników, którzy zostaną przekazani do kolejnego etapu algorytmu ewolucyjnego.
-W każdej iteracji pętli for, wybieramy losowo kilka osobników z populacji (liczbę określoną przez argument tournament_size), a następnie wybieramy spośród nich osobnika o najlepszym wyniku funkcji przystosowania. 
-Taki proces jest powtarzany selection_size razy, a każdorazowo wybrany osobnik zostaje dodany do listy wybranych indeksów, a następnie zwracany jest zbiór osobników odpowiadający tym indeksom.
-Selekcja turniejowa jest jednym z popularnych sposobów selekcji w algorytmach ewolucyjnych i często daje dobre wyniki w różnych problemach. 
-'''
-
-'''
-def tournament_selection(population, fitness_fn, tournament_size):
-    """Selekcja turniejowa"""
-    tournament = random.sample(population, tournament_size)
-    return max(tournament, key=fitness_fn)
-'''
-
-'''
-Mutacja: wykonaj operację mutacji na każdym z potomków. 
-Mutacja polega na dodaniu lub usunięciu losowego wierzchołka z potomka.
-'''
-
-def mutation(individual, mutation_rate):
-    for i in range(len(individual)):
-        if random.random() < mutation_rate:
-            individual[i] = 1 - individual[i]  # zmiana 0 na 1 lub 1 na 0 z zadanym prawdopodobieństwem
-    return individual
+    def mutation(self, individual, mutation_rate):
+        individual_mutated = individual.copy()
+        for i in range(len(individual_mutated)):
+            if random.random() < mutation_rate:
+                individual_mutated[i] = 1 - individual_mutated[i]
+        return individual_mutated
 
 
 
-# Generowanie populacji o rozmiarze population_size
-population_size = 5
-population = generate_population(population_size, nodes)
-
-# Obliczanie wartości funkcji przystosowania dla każdego osobnika w populacji
-for individual in population:
-    fitness = calculate_fitness(individual, edges)
-    individual.append(fitness)
-    print(individual)
 
 
-fitness_scores = [calculate_fitness(individual, edges) for individual in population]
-# Wybór najlepszych osobników do kolejnej generacji SELEKCJA ELITARNA
-elite_indices = sorted(range(len(population)), key=lambda i: fitness_scores[i], reverse=True)[:2]
-next_generation = [population[i] for i in elite_indices]
+    def genetic_algorithm(self, num_generations = 10, mutation_probability = 0.01):
+        population = generate_population(self.population_size, nodes)
+        print(population)
 
-print(next_generation)
-#SELEKCJA TURNIEJOWA ta teraz dziala dobrze
-print(tournament_selection(population, fitness_scores, 2,2))
+        fitness_scores = self.calculate_fitness_for_all(population)
 
-'''
-Poniżej opisuję poszczególne kroki w tym fragmencie kodu:
+        for generation in range(num_generations):
 
-elite_indices = sorted(range(len(population)), key=lambda i: fitness_scores[i], reverse=True)[:elite_size]
-range(len(population)) tworzy listę liczb całkowitych od 0 do len(population)-1.
-key=lambda i: fitness_scores[i] określa, że porównywane będą elementy listy fitness_scores odpowiadające indeksom z listy utworzonej w poprzednim kroku.
-sorted() sortuje elementy na podstawie klucza (czyli wartości funkcji fitness) w kolejności malejącej (reverse=True).
-[:elite_size] wybiera pierwsze elite_size elementów z posortowanej listy, czyli indeksy osobników o najlepszych wynikach.
-next_generation = [population[i] for i in elite_indices]
-population[i] wybiera osobnika z populacji o indeksie i.
-for i in elite_indices iteruje po indeksach osobników o najlepszych wynikach wybranych w poprzednim kroku.
-[population[i] for i in elite_indices] tworzy listę osobników o najlepszych wynikach, którzy zostaną przekazani do następnej generacji.
-Ostatecznie, next_generation będzie zawierać kopie kilku najlepszych osobników z populacji population, zgodnie z wynikami funkcji fitness. Dzięki temu, najlepsze rozwiązania zostaną zachowane i będą mogły przekazać swoje geny dalej, a więc wpłynąć na kolejne generacje.'
-'''
+            Tt = self.tournament_selection(population, fitness_scores, 2, len(population))
 
-def genetic_algorithm(num_generations = 1000, mutation_probability = 0.01, elite_size = 2):
-    for generation in range(num_generations):
-        # Ocena fitness dla każdego osobnika
-        fitness_scores = [calculate_fitness(individual,edges) for individual in population]
-
-        # Wybór najlepszych osobników do kolejnej generacji
-        elite_indices = sorted(range(len(population)), key=lambda i: fitness_scores[i], reverse=True)[:elite_size]
-        next_generation = [population[i] for i in elite_indices]
-
-        # Reprodukcja i mutacja
-        while len(next_generation) < population_size:
-
-
+            next_generation = Tt.copy()
             # Mutacja
-            for individual in population:
+            for individual in Tt:
                 if random.random() < mutation_probability:
-                    child = mutation(individual,mutation_probability)
-                    next_generation.append(child)
+                    mutated_individual = self.mutation(individual, mutation_probability)
+                    next_generation.append(mutated_individual)
+
+            Tt = next_generation.copy()
+            fitness_scores = self.calculate_fitness_for_all(Tt)
+
+            elite_indices = sorted(range(len(Tt)), key=lambda i: fitness_scores[i], reverse=True)[:len(population)]
+            population = [Tt[i] for i in elite_indices]
+
+        print(population)
+
+        # # Wybór najlepszego osobnika
+        best_individual = max(population, key=lambda individual: self.calculate_fitness(individual,edges))
+        return best_individual, self.calculate_fitness(best_individual, edges)
+
+
+algorithmInit = GeneticAlgorithm(population_size = 5, tournament_size= 2, selection_size = 2, mutation_rate = 0.01)
+
+best = algorithmInit.genetic_algorithm(num_generations = 1000, mutation_probability = 0.01)
+print(best)
 
 
 
-        # Aktualizacja populacji
-        population = next_generation
 
-    # Wybór najlepszego osobnika
-    best_individual = max(population, key=lambda individual: calculate_fitness(individual,edges))
-    return best_individual, calculate_fitness(best_individual, edges)
