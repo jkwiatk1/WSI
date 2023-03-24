@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 from graphsGenerator import create_complete_graph, create_bipartite_graph, create_random_graph
 from geneticAlgorithm import GeneticAlgorithm
 
-numberOfIteration = [50,100,200,500,1000]
-# numberOfIteration = [10, 50, 100]
+# numberOfIteration = [50,100,200,500,1000]
+numberOfIteration = [20, 40, 60, 80, 100]
 
 """
 Graf pełny
@@ -77,7 +77,7 @@ def exp_BG():
     std_dev_all = []
     for num in numberOfIteration:
         G_exp1_all, G_exp1_cover = expetiment_for_BipartiteGraph(num_of_experiment=51, num_generations=num,
-                                                                 population_size=30, selection_size=30, mutation_probability = 0.1)
+                                                                 population_size=30, selection_size=30, mutation_probability = 0.01)
         std_dev = np.std(G_exp1_cover)
         min_cover = min(G_exp1_cover)
         max_cover = max(G_exp1_cover)
@@ -103,7 +103,7 @@ def exp_CG():
     std_dev_all = []
     for num in numberOfIteration:
         CG_exp1_all, CG_exp1_cover = expetiment_for_CompleteGraph(num_of_experiment=51, num_generations=num,
-                                                                  population_size=30, selection_size=30, mutation_probability = 0.1)
+                                                                  population_size=30, selection_size=30, mutation_probability = 0.01)
         std_dev = np.std(CG_exp1_cover)
         min_cover = min(CG_exp1_cover)
         max_cover = max(CG_exp1_cover)
@@ -128,7 +128,7 @@ def exp_RG():
     std_dev_all = []
     for num in numberOfIteration:
         RG_exp1_all, RG_exp1_cover = expetiment_for_RandomGraph(num_of_experiment=51, num_generations=num,
-                                                                  population_size=30, selection_size=30, mutation_probability = 0.1)
+                                                                  population_size=30, selection_size=30, mutation_probability = 0.01)
         std_dev = np.std(RG_exp1_cover)
         min_cover = min(RG_exp1_cover)
         max_cover = max(RG_exp1_cover)
