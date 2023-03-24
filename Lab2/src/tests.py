@@ -33,14 +33,13 @@ for i in range(5):
                                                      tournament_size=2, selection_size=15, mutation_rate=0.01)
     best = GeneticAlgorithmInit_Complete.genetic_algorithm()
     result = best[1]/number_of_all_edges_Complete
-    show_graph(complete_graph_1_edges, f"Graf pełny, Pokrycie={result}", best[0])
+    show_graph(complete_graph_1_edges, f"Graf pełny, Pokrycie={result}, Pokryte: {best[1]}, Wszystkie: {number_of_all_edges_Complete}", best[0])
 
 
 
 """
 Graf dwudzielny
 """
-
 for i in range(5):
     bipartite_graph_1_nodes, bipartite_graph_1_edges = create_bipartite_graph(5, 5)
     number_of_all_edges_Bipartite = len(bipartite_graph_1_edges)
@@ -49,7 +48,7 @@ for i in range(5):
                                                      tournament_size=2, selection_size=15, mutation_rate=0.01)
     best = GeneticAlgorithmInit_Bipartite.genetic_algorithm()
     result = best[1]/number_of_all_edges_Bipartite
-    show_graph(bipartite_graph_1_edges, f"Graf dwudzielny, Pokrycie={result}", best[0])
+    show_graph(bipartite_graph_1_edges, f"Graf dwudzielny, Pokrycie={result}, Pokryte: {best[1]}, Wszystkie: {number_of_all_edges_Bipartite}", best[0])
 
 
 
@@ -64,4 +63,4 @@ for i in range(5):
                                                    tournament_size=2, selection_size=15, mutation_rate=0.01)
     best = GeneticAlgorithmInit_Random.genetic_algorithm()
     result = best[1]/number_of_all_edges_Random
-    show_graph(random_graph_1_edges, f"Graf losowy, Pokrycie={result}", best[0])
+    show_graph(random_graph_1_edges, f"Graf losowy, Pokrycie={result}, Pokryte: {best[1]}, Wszystkie: {number_of_all_edges_Random}", best[0])
