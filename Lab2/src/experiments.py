@@ -8,6 +8,8 @@ from geneticAlgorithm import GeneticAlgorithm
 
 # numberOfIteration = [50,100,200,500,1000]
 numberOfIteration = [20, 40, 60, 80, 100]
+MUT = 0.01
+POPULACJA = 100
 
 """
 Graf pełny
@@ -50,13 +52,13 @@ def expetiment_for_BipartiteGraph(num_of_experiment, num_generations, population
 
 
 """
-Graf z połową krawędzi
+Graf losowy
 """
 def expetiment_for_RandomGraph(num_of_experiment, num_generations, population_size, selection_size,mutation_probability):
     result_for_BipGraph = []
     result_cover = []
+    random_cover_per = random.uniform(0.3, 0.5)
     for i in range(num_of_experiment):
-        random_cover_per = random.uniform(0.5, 0.7)
         random_graph_1_nodes, random_graph_1_edges = create_random_graph(25, random_cover_per)
         number_of_all_edges_R = len(random_graph_1_edges)
         GeneticAlgorithmInit_Random = GeneticAlgorithm(edges=random_graph_1_edges, nodes=random_graph_1_nodes,
@@ -77,7 +79,7 @@ def exp_BG():
     std_dev_all = []
     for num in numberOfIteration:
         G_exp1_all, G_exp1_cover = expetiment_for_BipartiteGraph(num_of_experiment=51, num_generations=num,
-                                                                 population_size=30, selection_size=30, mutation_probability = 0.01)
+                                                                 population_size=POPULACJA, selection_size=POPULACJA, mutation_probability = MUT)
         std_dev = np.std(G_exp1_cover)
         min_cover = min(G_exp1_cover)
         max_cover = max(G_exp1_cover)
@@ -103,7 +105,7 @@ def exp_CG():
     std_dev_all = []
     for num in numberOfIteration:
         CG_exp1_all, CG_exp1_cover = expetiment_for_CompleteGraph(num_of_experiment=51, num_generations=num,
-                                                                  population_size=30, selection_size=30, mutation_probability = 0.01)
+                                                                  population_size=POPULACJA, selection_size=POPULACJA, mutation_probability = MUT)
         std_dev = np.std(CG_exp1_cover)
         min_cover = min(CG_exp1_cover)
         max_cover = max(CG_exp1_cover)
@@ -128,7 +130,7 @@ def exp_RG():
     std_dev_all = []
     for num in numberOfIteration:
         RG_exp1_all, RG_exp1_cover = expetiment_for_RandomGraph(num_of_experiment=51, num_generations=num,
-                                                                  population_size=30, selection_size=30, mutation_probability = 0.01)
+                                                                  population_size=POPULACJA, selection_size=POPULACJA, mutation_probability = MUT)
         std_dev = np.std(RG_exp1_cover)
         min_cover = min(RG_exp1_cover)
         max_cover = max(RG_exp1_cover)
