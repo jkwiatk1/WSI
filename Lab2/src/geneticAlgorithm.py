@@ -38,9 +38,9 @@ class GeneticAlgorithm:
     def tournament_selection(self,population, fitness_scores, tournament_size, selection_size):
         selected_indices = []
         for i in range(selection_size):
-            tournament_indices = random.sample(range(len(population)), tournament_size)
-            tournament_fitnesses = [fitness_scores[index] for index in tournament_indices]
-            best_index = tournament_indices[tournament_fitnesses.index(max(tournament_fitnesses))]
+            tournament_indexes = random.sample(range(len(population)), tournament_size)
+            tournament_fitnesses = [fitness_scores[index] for index in tournament_indexes]
+            best_index = tournament_indexes[tournament_fitnesses.index(max(tournament_fitnesses))]
             selected_indices.append(best_index)
         selected_population = [population[i] for i in selected_indices]
         return selected_population

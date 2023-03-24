@@ -15,7 +15,7 @@ Graf testowy
 for i in range(5):
     GeneticAlgorithmInit_Test = GeneticAlgorithm(edges=edges, nodes=nodes, num_generations=100,
                                                  mutation_probability=0.01, population_size=8, tournament_size=2,
-                                                 selection_size=8, mutation_rate=0.01)
+                                                 selection_size=11, mutation_rate=0.01)
     best = GeneticAlgorithmInit_Test.genetic_algorithm()
     result = best[1]/number_of_all_edges
     show_graph(edges, f"Graf testowy, Pokrycie={result}, Pokryte: {best[1]}, Wszystkie: {number_of_all_edges}", best[0])
