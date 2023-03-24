@@ -26,7 +26,7 @@ def create_bipartite_graph(leftNodes, rightNodes):
 
 
 def create_random_graph(numNodes, probOfVertex):
-    graph = nx.erdos_renyi_graph(numNodes, probOfVertex)  #nx.erdos_renyi_graph(8, 0.5, seed=21)
+    graph = nx.erdos_renyi_graph(numNodes, probOfVertex)  #nx.erdos_renyi_graph(numNodes, probOfVertex, seed=123)
     nodes = graph.nodes()
     graph = graph.edges()
     return nodes, graph
