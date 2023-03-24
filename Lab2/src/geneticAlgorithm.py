@@ -50,12 +50,11 @@ random.seed(123)
 #         return selected_population
 #
 #     def mutation(self, individual, mutation_rate):
-#         individual_mutated = individual.copy()
 #         num_mutations = int(np.random.normal(loc=mutation_rate * len(individual), scale=1))
 #         for i in range(num_mutations):
 #             index_to_mutate = random.randint(0, len(individual)-1)
-#             individual_mutated[index_to_mutate] = 1 - individual[index_to_mutate]
-#         return individual_mutated
+#             individual[index_to_mutate] = 1 - individual[index_to_mutate]
+#         return individual
 #
 #
 #
@@ -68,13 +67,10 @@ random.seed(123)
 #         for generation in range(self.num_generations):
 #             Tt = self.tournament_selection(population, fitness_scores, 2, len(population))
 #
-#             next_generation = Tt.copy()
 #             for individual in Tt:
 #                 if random.random() < self.mutation_probability:
-#                     mutated_individual = self.mutation(individual, self.mutation_probability)
-#                     next_generation.append(mutated_individual)
+#                     self.mutation(individual, self.mutation_probability)
 #
-#             Tt = next_generation.copy()
 #             fitness_scores = self.calculate_fitness_for_all(Tt)
 #
 #             elite_indices = sorted(range(len(Tt)), key=lambda i: fitness_scores[i], reverse=True)[:len(population)]
@@ -139,28 +135,23 @@ class GeneticAlgorithm:
         return selected_population
 
     def mutation(self, individual, mutation_rate):
-        individual_mutated = individual.copy()
         num_mutations = int(np.random.normal(loc=mutation_rate * len(individual), scale=1))
         for i in range(num_mutations):
             index_to_mutate = random.randint(0, len(individual)-1)
-            individual_mutated[index_to_mutate] = 1 - individual[index_to_mutate]
-        return individual_mutated
+            individual[index_to_mutate] = 1 - individual[index_to_mutate]
+        return individual
 
     def genetic_algorithm(self):
         population = generate_population(self.population_size, self.nodes)
-
         fitness_scores = self.calculate_fitness_for_all(population)
 
         for generation in range(self.num_generations):
             Tt = self.tournament_selection(population, fitness_scores, 2, len(population))
 
-            next_generation = Tt.copy()
             for individual in Tt:
                 if random.random() < self.mutation_probability:
-                    mutated_individual = self.mutation(individual, self.mutation_probability)
-                    next_generation.append(mutated_individual)
+                    self.mutation(individual, self.mutation_probability)
 
-            Tt = next_generation.copy()
             fitness_scores = self.calculate_fitness_for_all(Tt)
 
             elite_indices = sorted(range(len(Tt)), key=lambda i: fitness_scores[i], reverse=True)[:len(population)]
