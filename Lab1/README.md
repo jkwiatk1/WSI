@@ -1,5 +1,7 @@
 # Zadanie 1 - zagadnienie przeszukiwania i związane z tym podejścia
 
+Dokumentacja do projektu: https://github.com/jkwiatk1/WSI-lab/blob/main/Lab1/doc/wsi_1_Jan_Kwiatkowski.pdf
+
 # Polecenie
 Zadaniem była minimalizacja funkcji celu i porównanie wyników dla `metody najszybszego spadku gradientu` i `metody Newtona`. Zbadano różnice w działaniu tych metod dla różnych punktów początkowych z zadanego zakresu.
 
