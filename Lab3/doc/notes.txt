@@ -1,0 +1,14 @@
+connect four minimax algorithm:
+pages:
+https://www.javatpoint.com/mini-max-algorithm-in-ai
+https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/
+https://medium.com/analytics-vidhya/artificial-intelligence-at-play-connect-four-minimax-algorithm-explained-3b5fc32e4a4f
+https://roboticsproject.readthedocs.io/en/latest/ConnectFourAlgorithm.html
+
+github:
+https://github.com/gamescomputersplay/connect4
+
+YT:
+https://www.youtube.com/watch?v=MMLtza3CZFM
+
+https://peps.python.org/pep-0008/
