@@ -21,11 +21,17 @@ class Connect4Game:
         return self.board[self.ROW_AMOUNT - 1][col] == 0
 
 
-    def get_next_row(self, col):
+    def get_next_free_row(self, col):
         for r in range(self.ROW_AMOUNT):
             if self.board[r][col] == 0:
                 return r
 
+    def get_possible_moves(self):
+        possible_locations = []
+        for col in range(self.COLUMN_AMOUNT):
+            if self.is_valid_location(col):
+                possible_locations.append(col)
+        return possible_locations
 
     def print_board(self):
         print(np.flip(self.board, 0))
