@@ -6,61 +6,62 @@ class Connect4Game:
         self.COLUMN_AMOUNT = column_amount
         self.PLAYER_1_PIECE = 1
         self.PLAYER_2_PIECE = 2
+        self.board = self.create_board()
 
     def create_board(self):
         board = np.zeros((self.ROW_AMOUNT, self.COLUMN_AMOUNT))
         return board
 
 
-    def drop_piece(self,board, row, col, piece):
-        board[row][col] = piece
+    def drop_piece(self, row, col, piece):
+        self.board[row][col] = piece
 
 
-    def is_valid_location(self,board, col):
-        return board[self.ROW_AMOUNT - 1][col] == 0
+    def is_valid_location(self, col):
+        return self.board[self.ROW_AMOUNT - 1][col] == 0
 
 
-    def get_next_row(self,board, col):
+    def get_next_row(self, col):
         for r in range(self.ROW_AMOUNT):
-            if board[r][col] == 0:
+            if self.board[r][col] == 0:
                 return r
 
 
-    def print_board(self,board):
-        print(np.flip(board, 0))
+    def print_board(self):
+        print(np.flip(self.board, 0))
 
 
-    def check_is_win(self,board, piece):
+    def check_is_win(self, piece):
         # Check horizontal locations for win
         for c in range(self.COLUMN_AMOUNT - 3):
             for r in range(self.ROW_AMOUNT):
-                if board[r][c] == piece and board[r][c + 1] == piece and board[r][c + 2] == piece and board[r][
+                if self.board[r][c] == piece and self.board[r][c + 1] == piece and self.board[r][c + 2] == piece and self.board[r][
                     c + 3] == piece:
                     return True
 
         # Check vertical locations for win
         for c in range(self.COLUMN_AMOUNT):
             for r in range(self.ROW_AMOUNT - 3):
-                if board[r][c] == piece and board[r + 1][c] == piece and board[r + 2][c] == piece and board[r + 3][
+                if self.board[r][c] == piece and self.board[r + 1][c] == piece and self.board[r + 2][c] == piece and self.board[r + 3][
                     c] == piece:
                     return True
 
         # Check positively sloped diaganols
         for c in range(self.COLUMN_AMOUNT - 3):
             for r in range(self.ROW_AMOUNT - 3):
-                if board[r][c] == piece and board[r + 1][c + 1] == piece and board[r + 2][c + 2] == piece and board[r + 3][
+                if self.board[r][c] == piece and self.board[r + 1][c + 1] == piece and self.board[r + 2][c + 2] == piece and self.board[r + 3][
                     c + 3] == piece:
                     return True
 
         # Check negatively sloped diaganols
         for c in range(self.COLUMN_AMOUNT - 3):
             for r in range(3, self.ROW_AMOUNT):
-                if board[r][c] == piece and board[r - 1][c + 1] == piece and board[r - 2][c + 2] == piece and board[r - 3][
+                if self.board[r][c] == piece and self.board[r - 1][c + 1] == piece and self.board[r - 2][c + 2] == piece and self.board[r - 3][
                     c + 3] == piece:
                     return True
 
-    def is_board_full(self, board):
-        return all([not self.is_valid_location(board, i) for i in range(self.COLUMN_AMOUNT)])
+    def is_board_full(self):
+        return all([not self.is_valid_location(i) for i in range(self.COLUMN_AMOUNT)])
 
 
 
