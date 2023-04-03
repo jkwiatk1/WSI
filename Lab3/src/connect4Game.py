@@ -1,12 +1,18 @@
+# author: Jan Kwiatkowski
 import numpy as np
 
 class Connect4Game:
-    def __init__(self, row_amount = 4, column_amount = 5):
+    def __init__(self, board = [], row_amount = 4, column_amount = 5):
         self.ROW_AMOUNT = row_amount
         self.COLUMN_AMOUNT = column_amount
         self.PLAYER_1_PIECE = 1
         self.PLAYER_2_PIECE = 2
-        self.board = self.create_board()
+        self.board = board
+        if len(board) == 0:
+            self.board = self.create_board()
+        elif len(board) != 0:
+            self.board = board
+
 
     def create_board(self):
         board = np.zeros((self.ROW_AMOUNT, self.COLUMN_AMOUNT))
