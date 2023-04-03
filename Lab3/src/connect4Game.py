@@ -1,6 +1,8 @@
 # author: Jan Kwiatkowski
 import numpy as np
 
+from evaluateFunction import EvaluateFunctions
+
 
 class Connect4Game:
     def __init__(self, board=[], row_amount=4, column_amount=5):
@@ -18,15 +20,15 @@ class Connect4Game:
         board = np.zeros((self.ROW_AMOUNT, self.COLUMN_AMOUNT))
         return board
 
-    def copy_board(self):
-        return [row[:] for row in self.board]
+    # def copy_board(self):
+    #     return [row[:] for row in self.board]
 
     def get_successor(self, move, is_maximizing_player):
         piece = self.PLAYER_1_PIECE if is_maximizing_player else self.PLAYER_2_PIECE
         row = self.get_next_free_row(move)
-        new_board = self.copy_board()
-        self.drop_piece(new_board, row, move, piece)
-        return Connect4Game(board=new_board)
+        new_game_state = Connect4Game(board=self.board.copy())
+        new_game_state.drop_piece(new_game_state.board,row, move, piece)
+        return new_game_state
 
     def get_score(self):
         """
@@ -42,7 +44,9 @@ class Connect4Game:
         elif self.is_board_full():
             return 0
         else:
-            return None
+            score = EvaluateFunctions(self).count_score()
+            return score
+            # return None
 
     def drop_piece(self, board, row, col, piece):
         board[row][col] = piece

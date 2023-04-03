@@ -9,7 +9,7 @@ Zadaniem będzie napisanie programu, który buduje drzewo zadanej gry a następn
 2.	Obaj gracze podejmują optymalne decyzje (minimax vs minimax).
 
 Aktualny stan planszy powinien być wyświetlany w konsoli, ale można użyć dodatkowych bibliotek do pisania i wyświetlania gier w Pythonie takich jak `pygame`.
-W raporcie należy przedstawić przykład wykonania programu wraz z odpowiadającymi stanami drzewa gry i wyborami algorytmu minimax. Zastosowanie przycinania alfa-beta nie jest wymagane, ale może okazać się potrzebne. W raporcie należy pokazać wygraną każdej ze stron, czyli że gra nie jest ustawiona (przeprowadzić 100 testów i zliczyć sumy wyników każdej ze stron.
+W raporcie należy przedstawić przykład wykonania programu wraz z odpowiadającymi stanami drzewa gry i wyborami algorytmu minimax. Zastosowanie przycinania alfa-beta nie jest wymagane, ale może okazać się potrzebne. W raporcie należy pokazać wygraną każdej ze stron, czyli że gra nie jest ustawiona (przeprowadzić 100 testów i zliczyć sumy wyników każdej ze stron).
 
 ## Problem
 

@@ -1,15 +1,14 @@
 # author: Jan Kwiatkowski
 import math
+import random
 
 from connect4Game import Connect4Game
-from evaluateFunction import EvaluateFunctions
 
 
 class MinMax:
     def __init__(self, depth):
         self.depth = depth
         self.game4 = Connect4Game()
-        self.heuristic = EvaluateFunctions()
 
     def min_max(self, game_state, depth, is_maximizing_player=True):
         if depth == 0 or game_state.is_game_over():
@@ -49,40 +48,6 @@ class MinMax:
                 best_score = score
         return best_move
 
-    # def min_max(self, board, depth, is_maximizing_player = True):
-    #     if depth == 0 or self.game4.is_board_full():
-    #         return self.heuristic.evaluate_position(self.game4.board)
-    #     if is_maximizing_player:
-    #         best_score = -math.inf
-    #         for col in self.game4.get_possible_moves():
-    #             row = self.game4.get_next_free_row(col)
-    #             game4_new_state = Connect4Game(game4)
-    #             new_score = self.game4_new_state.drop_piece(row, col, self.game4.PLAYER_1_PIECE)
-    #             score = self.min_max(new_score, depth - 1, False)
-    #             best_score = max(best_score, score)
-    #         return best_score
-    #     else:
-    #         best_score = math.inf
-    #         for col in self.game4.get_possible_moves():
-    #             row = self.game4.get_next_free_row(col)
-    #             new_board = self.game4.drop_piece(row, col, self.game4.PLAYER_2_PIECE)
-    #             score = self.min_max(new_board, depth - 1, True)
-    #             best_score = min(best_score, score)
-    #         return best_score
-
-    # def move_min_max(self):
-    #     pass
-
-    # def get_best_move(self, board, depth):
-    #     best_move = None
-    #     best_score = -math.inf
-    #     for move in get_possible_moves(board):
-    #         new_board = make_move(board, move, "X")
-    #         score = minimax(new_board, depth - 1, False)
-    #     if score > best_score:
-    #         best_score = score
-    #     best_move = move
-    #     return best_move
 
 
 minmax = MinMax(3)
@@ -90,10 +55,19 @@ is_maximizing_player = True
 
 while not minmax.game4.is_game_over():
     if is_maximizing_player:
-        move = minmax.get_best_move(True)
-        print(f"Gracz maksymalizujący wykonuje ruch: {move}")
+        player1_move = minmax.get_best_move(True)
+        print(f"Player 1 move = {player1_move+1}")
+        move = player1_move
     else:
-        move = input("Podaj ruch gracza minimalizującego: ")
+        do = True
+        while do:
+            player2_move = random.randint(1, minmax.game4.COLUMN_AMOUNT)
+            print(f"Player 2 move = {player2_move}")
+            if minmax.game4.is_valid_location(player2_move - 1):
+                do = False
+        move = player2_move - 1
+
+
     row = minmax.game4.get_next_free_row(move)
     if is_maximizing_player:
         minmax.game4.drop_piece(minmax.game4.board,  row, move, minmax.game4.PLAYER_1_PIECE)
@@ -102,12 +76,13 @@ while not minmax.game4.is_game_over():
     print(minmax.game4.print_board())
     is_maximizing_player = not is_maximizing_player
 
-winner = minmax.game4.get_score()
-if winner is None:
-    print("Remis!")
-elif winner == 1:
-    print(f"Zwyciężył gracz 1!")
-elif winner == -1:
-    print(f"Zwyciężył gracz 2!")
-else:
-    print("Nie wiem kto wygral czyli REMIS")
+#
+# winner = minmax.game4.get_score()
+# if winner is None:
+#     print("Remis!")
+# elif winner == 1:
+#     print(f"Zwyciężył gracz 1!")
+# elif winner == -1:
+#     print(f"Zwyciężył gracz 2!")
+# else:
+#     print("Nie wiem kto wygral czyli REMIS")
