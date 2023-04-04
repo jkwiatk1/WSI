@@ -1,5 +1,5 @@
 # author: Jan Kwiatkowski
-import numpy as np
+import numpy
 
 class EvaluateFunctions:
     def __init__(self, game_state,is_maximizing_player):
@@ -7,19 +7,162 @@ class EvaluateFunctions:
         self.is_maximizing_player = is_maximizing_player
 
     def count_score(self):
-        return self.get_num_free_spaces()
-        # return self.evaluate_position(self.game_state.board,self.is_maximizing_player)
+        # return self.get_num_free_spaces()
+        return self.evaluate_position(self.game_state.board,self.is_maximizing_player)
+        # return self.eval_pos_traning(self.game_state.board, self.is_maximizing_player)
 
     def get_num_free_spaces(self):
         return (self.game_state.board == 0).sum()
+
+
 
     def evaluate_position(self,board, is_maximizing_player):
 
         # define player pieces and opponent pieces
         if is_maximizing_player:
-            my_piece, opp_piece = 'X', 'O'
+            my_piece, opp_piece = 1, 2
         else:
-            my_piece, opp_piece = 'O', 'X'
+            my_piece, opp_piece = 2, 1
+
+        # Define weights for different lengths of continuous lines
+        weights = {1: 0.1, 2: 0.3, 3: 0.9}
+
+        # Define middle weights for different board sizes
+        middle_weights = {4: 0.5, 5: 0.4, 6: 0.3, 7: 0.2, 8: 0.1}
+
+        # Get middle column index for current board size
+        middle_col = len(board[0]) // 2
+
+        # Calculate the number of continuous lines for player and opponent
+        my_lines = 0
+        opp_lines = 0
+
+        # if line.count(my_piece) == 4:
+        #     return 1  # Maximizer wins
+        # elif line.count(opp_piece) == 4:
+        #     return -1  # Minimizer wins
+
+        # Check horizontal lines
+        for row in range(len(board)):
+            for col in range(len(board[0]) - 3):
+                line = board[row][col:col + 4]
+                if numpy.count_nonzero(line == my_piece) == 4:
+                    return 1  # Maximizer wins
+                elif numpy.count_nonzero(line == opp_piece) == 4:
+                    return -1  # Minimizer wins
+                my_lines += weights.get(numpy.count_nonzero(line == my_piece), 0)
+                opp_lines += weights.get(numpy.count_nonzero(line == opp_piece), 0)
+
+        # Check vertical lines
+        for col in range(len(board[0])):
+            for row in range(len(board) - 3):
+                line = [board[row + i][col] for i in range(4)]
+                if numpy.count_nonzero(line == my_piece) == 4:
+                    return 1  # Maximizer wins
+                elif numpy.count_nonzero(line == opp_piece) == 4:
+                    return -1  # Minimizer wins
+                my_lines += weights.get(numpy.count_nonzero(line == my_piece), 0)
+                opp_lines += weights.get(numpy.count_nonzero(line == opp_piece), 0)
+
+        # Check diagonal lines (top-left to bottom-right)
+        for row in range(len(board) - 3):
+            for col in range(len(board[0]) - 3):
+                line = [board[row + i][col + i] for i in range(4)]
+                if numpy.count_nonzero(line == my_piece) == 4:
+                    return 1  # Maximizer wins
+                elif numpy.count_nonzero(line == opp_piece) == 4:
+                    return -1  # Minimizer wins
+                my_lines += weights.get(numpy.count_nonzero(line == my_piece), 0)
+                opp_lines += weights.get(numpy.count_nonzero(line == opp_piece), 0)
+
+        # Check diagonal lines (bottom-left to top-right)
+        for row in range(len(board) - 3):
+            for col in range(len(board[0]) - 3):
+                line = [board[row + i][col + i] for i in range(4)]
+                if line.count(my_piece) == 4:
+                    return 1  # Maximizer wins
+                elif line.count(opp_piece) == 4:
+                    return -1  # Minimizer wins
+                my_lines += weights.get(line.count(my_piece), 0)
+                opp_lines += weights.get(line.count(opp_piece), 0)
+
+
+
+        # Add middle weights for center column
+        for row in range(len(board)):
+            line = board[row][middle_col]
+            if numpy.count_nonzero(line == my_piece) == 1:
+                my_lines += middle_weights[len(board)]
+            elif numpy.count_nonzero(line == opp_piece) == 1:
+                opp_lines += middle_weights[len(board)]
+
+        # Calculate the heuristic value as the difference between my lines and opponent's lines
+        return my_lines - opp_lines
+
+
+
+    # def evaluate_window(self, window, piece):
+    #     PLAYER_PIECE = 1
+    #     AI_PIECE = 2
+    #     score = 0
+    #     opp_piece = PLAYER_PIECE
+    #     if piece == PLAYER_PIECE:
+    #         opp_piece = AI_PIECE
+    #
+    #     if window.count(piece) == 4:
+    #         score += 100
+    #     elif window.count(piece) == 3 and window.count(EMPTY) == 1:
+    #         score += 5
+    #     elif window.count(piece) == 2 and window.count(EMPTY) == 2:
+    #         score += 2
+    #
+    #     if window.count(opp_piece) == 3 and window.count(EMPTY) == 1:
+    #         score -= 4
+    #
+    #     return score
+    #
+    # def eval_pos_traning(self, board, is_maximizing_player):
+    #     ROW_COUNT = 6
+    #     COLUMN_COUNT = 7
+    #     WINDOW_LENGTH = 4
+    #     if is_maximizing_player:
+    #         piece = 1
+    #     else:
+    #         piece = 2
+    #
+    #     score = 0
+    #
+    #     ## Score center column
+    #     center_array = [int(i) for i in list(board[:, COLUMN_COUNT // 2])]
+    #     center_count = center_array.count(piece)
+    #     score += center_count * 3
+    #
+    #     ## Score Horizontal
+    #     for r in range(ROW_COUNT):
+    #         row_array = [int(i) for i in list(board[r, :])]
+    #         for c in range(COLUMN_COUNT - 3):
+    #             window = row_array[c:c + WINDOW_LENGTH]
+    #             score += self.evaluate_window(window, piece)
+    #
+    #     ## Score Vertical
+    #     for c in range(COLUMN_COUNT):
+    #         col_array = [int(i) for i in list(board[:, c])]
+    #         for r in range(ROW_COUNT - 3):
+    #             window = col_array[r:r + WINDOW_LENGTH]
+    #             score += self.evaluate_window(window, piece)
+    #
+    #     ## Score posiive sloped diagonal
+    #     for r in range(ROW_COUNT - 3):
+    #         for c in range(COLUMN_COUNT - 3):
+    #             window = [board[r + i][c + i] for i in range(WINDOW_LENGTH)]
+    #             score += self.evaluate_window(window, piece)
+    #
+    #     for r in range(ROW_COUNT - 3):
+    #         for c in range(COLUMN_COUNT - 3):
+    #             window = [board[r + 3 - i][c + i] for i in range(WINDOW_LENGTH)]
+    #             score += self.evaluate_window(window, piece)
+    #
+    #     return score
 
 
 
@@ -28,7 +171,8 @@ class EvaluateFunctions:
 
 
 
-    #     # heurystyki
+
+                #     # heurystyki
     #     score = 0
     #
     #     # heurystyka 1: liczba możliwych czterech w rzędzie

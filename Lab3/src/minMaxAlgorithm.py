@@ -78,12 +78,12 @@ while not minmax.game4.is_game_over():
     is_maximizing_player = not is_maximizing_player
 
 #
-# winner = minmax.game4.get_score()
-# if winner is None:
-#     print("Remis!")
-# elif winner == 1:
-#     print(f"Zwyciężył gracz 1!")
-# elif winner == -1:
-#     print(f"Zwyciężył gracz 2!")
-# else:
-#     print("Nie wiem kto wygral czyli REMIS")
+winner = minmax.game4.get_score(is_maximizing_player = None)
+if winner is None:
+    print("Remis!")
+elif winner == 1:
+    print(f"Zwyciężył gracz 1!")
+elif winner == -1:
+    print(f"Zwyciężył gracz 2!")
+else:
+    print("Nie wiem kto wygral czyli REMIS")
