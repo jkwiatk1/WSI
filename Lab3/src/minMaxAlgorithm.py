@@ -12,7 +12,7 @@ class MinMax:
 
     def min_max(self, game_state, depth, is_maximizing_player=True):
         if depth == 0 or game_state.is_game_over():
-            score = game_state.get_score()
+            score = game_state.get_score(is_maximizing_player)
             if score is None:
                 score = 0
             return score
@@ -52,6 +52,7 @@ class MinMax:
 
 minmax = MinMax(3)
 is_maximizing_player = True
+player2_move = None
 
 while not minmax.game4.is_game_over():
     if is_maximizing_player:

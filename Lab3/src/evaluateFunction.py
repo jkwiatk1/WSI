@@ -2,18 +2,32 @@
 import numpy as np
 
 class EvaluateFunctions:
-    def __init__(self, game_state):
+    def __init__(self, game_state,is_maximizing_player):
         self.game_state = game_state
+        self.is_maximizing_player = is_maximizing_player
 
     def count_score(self):
         return self.get_num_free_spaces()
+        # return self.evaluate_position(self.game_state.board,self.is_maximizing_player)
 
     def get_num_free_spaces(self):
         return (self.game_state.board == 0).sum()
-    def evaluate_position(self,board, player):
-        pass
 
-    # def evaluate_position(self,board, player):
+    def evaluate_position(self,board, is_maximizing_player):
+
+        # define player pieces and opponent pieces
+        if is_maximizing_player:
+            my_piece, opp_piece = 'X', 'O'
+        else:
+            my_piece, opp_piece = 'O', 'X'
+
+
+
+
+
+
+
+
     #     # heurystyki
     #     score = 0
     #

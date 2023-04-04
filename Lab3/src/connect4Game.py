@@ -5,7 +5,9 @@ from evaluateFunction import EvaluateFunctions
 
 
 class Connect4Game:
-    def __init__(self, board=[], row_amount=4, column_amount=5):
+    def __init__(self, board=None, row_amount=4, column_amount=5):
+        if board is None:
+            board = []
         self.ROW_AMOUNT = row_amount
         self.COLUMN_AMOUNT = column_amount
         self.PLAYER_1_PIECE = 1
@@ -20,9 +22,6 @@ class Connect4Game:
         board = np.zeros((self.ROW_AMOUNT, self.COLUMN_AMOUNT))
         return board
 
-    # def copy_board(self):
-    #     return [row[:] for row in self.board]
-
     def get_successor(self, move, is_maximizing_player):
         piece = self.PLAYER_1_PIECE if is_maximizing_player else self.PLAYER_2_PIECE
         row = self.get_next_free_row(move)
@@ -30,7 +29,7 @@ class Connect4Game:
         new_game_state.drop_piece(new_game_state.board,row, move, piece)
         return new_game_state
 
-    def get_score(self):
+    def get_score(self,is_maximizing_player):
         """
         Metoda zwraca wartość związaną z wynikiem gry:
         1 dla wygranej gracza X
@@ -44,7 +43,7 @@ class Connect4Game:
         elif self.is_board_full():
             return 0
         else:
-            score = EvaluateFunctions(self).count_score()
+            score = EvaluateFunctions(self,is_maximizing_player).count_score()
             return score
             # return None
 
