@@ -1,6 +1,5 @@
 # author: Jan Kwiatkowski
-# Eksperymenty AI vs random
-import random
+# Eksperymenty AI vs AI
 from minMaxAlgorithm import MinMax
 
 DEPTH = 2
@@ -19,13 +18,9 @@ for i in range(gamesAmount):
             print(f"Ruch gracza 1 = {player1_move + 1}")
             move = player1_move
         else:
-            do = True
-            while do:
-                player2_move = random.randint(1, minmax.game4.COLUMN_AMOUNT)
-                print(f"Ruch gracza 2 = {player2_move}")
-                if minmax.game4.is_valid_location(player2_move - 1):
-                    do = False
-            move = player2_move - 1
+            player2_move = minmax.get_best_move(False)
+            print(f"Ruch gracza 2 = {player2_move + 1}")
+            move = player2_move
 
         row = minmax.game4.get_next_free_row(move)
         if is_maximizing_player:
@@ -49,14 +44,11 @@ for i in range(gamesAmount):
         drawAmount += 1
         print("REMIS")
 
-AIwinPer = player1WinsAmount / gamesAmount
+AI_1_winPer = player1WinsAmount / gamesAmount
+AI_2_winPer = player2WinsAmount / gamesAmount
 drawsPer = drawAmount / gamesAmount
-randomWinPer = player2WinsAmount / gamesAmount
 print()
-print("WYNIKI DLA GRY AI vs RANDOM")
-print(f"Procent wygranych gier przez AI: {AIwinPer:.2f}")
-print(f"Procent wygranych gier przez randoma: {randomWinPer:.2f}")
+print("WYNIKI DLA GRY AI vs AI")
+print(f"Procent wygranych gier przez AI_1: {AI_1_winPer:.2f}")
+print(f"Procent wygranych gier przez AI_2: {AI_2_winPer:.2f}")
 print(f"Procent remisow: {drawsPer:.2f}")
-
-
-

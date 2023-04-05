@@ -23,3 +23,10 @@ http://www.cs.cornell.edu/boom/2001sp/Anvari/Anvari.htm
 
 
 https://realpython.com/python-minimax-nim/?fbclid=IwAR1zW9KVg4N3Vbly0Qh6qLKMSf6_Q5mL0NYlv4opZJyrcnd4gKL-NOxGsPU
+
+google:
+https://www.google.com/search?q=fuzzy+logic+game+ai&oq=fuzzy+ai+game+&aqs=chrome.1.69i57j0i22i30j0i390i650l4.8816j0j7&sourceid=chrome&ie=UTF-8
+https://en.wikipedia.org/wiki/Minimax
+https://pl.wikipedia.org/wiki/Heurystyka_(informatyka)
+https://en.wikipedia.org/wiki/Constraint_satisfaction_problem
+https://pl.wikipedia.org/wiki/Heurystyka_(informatyka)

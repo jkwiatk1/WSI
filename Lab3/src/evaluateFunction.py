@@ -8,12 +8,7 @@ class EvaluateFunctions:
         self.is_maximizing_player = is_maximizing_player
 
     def count_score(self):
-        # return self.get_num_free_spaces()
         return self.evaluate_position(self.game_state.board, self.is_maximizing_player)
-        # return self.eval_pos_traning(self.game_state.board, self.is_maximizing_player)
-
-    def get_num_free_spaces(self):
-        return (self.game_state.board == 0).sum()
 
     def evaluate_position(self, board, is_maximizing_player):
 

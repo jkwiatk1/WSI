@@ -30,12 +30,6 @@ class Connect4Game:
         return new_game_state
 
     def get_score(self, is_maximizing_player):
-        """
-        Metoda zwraca wartość związaną z wynikiem gry:
-        1 dla wygranej gracza X
-        -1 dla wygranej gracza O
-        0 dla remisu lub nierozstrzygniętej gry
-        """
         if self.check_is_win(self.PLAYER_1_PIECE):
             return 1
         elif self.check_is_win(self.PLAYER_2_PIECE):
@@ -45,7 +39,6 @@ class Connect4Game:
         else:
             score = EvaluateFunctions(self, is_maximizing_player).count_score()
             return score
-            # return None
 
     def drop_piece(self, board, row, col, piece):
         board[row][col] = piece
