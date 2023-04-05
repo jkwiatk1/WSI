@@ -2,7 +2,7 @@
 # Eksperymenty AI vs AI
 from minMaxAlgorithm import MinMax
 
-DEPTH = 2
+DEPTH = 4
 player1WinsAmount = 0
 player2WinsAmount = 0
 drawAmount = 0

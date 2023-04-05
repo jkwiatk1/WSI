@@ -30,3 +30,14 @@ https://en.wikipedia.org/wiki/Minimax
 https://pl.wikipedia.org/wiki/Heurystyka_(informatyka)
 https://en.wikipedia.org/wiki/Constraint_satisfaction_problem
 https://pl.wikipedia.org/wiki/Heurystyka_(informatyka)
+
+
+#my_lines += weights.get(numpy.count_nonzero(line == my_piece), 0)
+Ten kod dodaje wartość wagową do zmiennej my_lines na podstawie liczby wystąpień wartości my_piece w tablicy line.
+
+numpy.count_nonzero(line == my_piece) to funkcja NumPy, która zlicza liczbę elementów w line, które są równe wartości my_piece.
+Ta liczba jest następnie używana jako klucz do pobrania wartości wagi z słownika weights, za pomocą metody .get().
+Jeśli liczba nie jest kluczem w słowniku, domyślnie używana jest wartość 0.
+
+Na końcu, pobrana wartość wagowa ze słownika jest dodawana do my_lines za pomocą operatora +=.
+Zmienna my_lines prawdopodobnie jest używana do śledzenia ogólnej punktacji planszy gry, w oparciu o wagi różnych pozycji i konfiguracji.
