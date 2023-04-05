@@ -3,7 +3,7 @@
 import random
 from minMaxAlgorithm import MinMax
 
-DEPTH = 4
+DEPTH = 2
 player1WinsAmount = 0
 player2WinsAmount = 0
 drawAmount = 0

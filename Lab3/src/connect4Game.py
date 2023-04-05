@@ -5,7 +5,7 @@ from evaluateFunction import EvaluateFunctions
 
 
 class Connect4Game:
-    def __init__(self, board=None, row_amount=7, column_amount=7):
+    def __init__(self, board=None, row_amount=5, column_amount=5):
         if board is None:
             board = []
         self.ROW_AMOUNT = row_amount
