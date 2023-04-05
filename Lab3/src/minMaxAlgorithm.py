@@ -50,14 +50,16 @@ class MinMax:
 
 
 
-minmax = MinMax(3)
+
+
+# TEST
+minmax = MinMax(4)
 is_maximizing_player = True
 player2_move = None
-
 while not minmax.game4.is_game_over():
     if is_maximizing_player:
         player1_move = minmax.get_best_move(True)
-        print(f"Player 1 move = {player1_move+1}")
+        print(f"Player 1 move = {player1_move + 1}")
         move = player1_move
     else:
         do = True
@@ -68,17 +70,16 @@ while not minmax.game4.is_game_over():
                 do = False
         move = player2_move - 1
 
-
     row = minmax.game4.get_next_free_row(move)
     if is_maximizing_player:
-        minmax.game4.drop_piece(minmax.game4.board,  row, move, minmax.game4.PLAYER_1_PIECE)
+        minmax.game4.drop_piece(minmax.game4.board, row, move, minmax.game4.PLAYER_1_PIECE)
     elif not is_maximizing_player:
         minmax.game4.drop_piece(minmax.game4.board, row, move, minmax.game4.PLAYER_2_PIECE)
     print(minmax.game4.print_board())
     is_maximizing_player = not is_maximizing_player
 
 #
-winner = minmax.game4.get_score(is_maximizing_player = None)
+winner = minmax.game4.get_score(is_maximizing_player=None)
 if winner is None:
     print("Remis!")
 elif winner == 1:
@@ -86,4 +87,4 @@ elif winner == 1:
 elif winner == -1:
     print(f"Zwyciężył gracz 2!")
 else:
-    print("Nie wiem kto wygral czyli REMIS")
+    print("REMIS")
