@@ -1,6 +1,6 @@
 # Zadanie 3 - Dwuosobowe gry deterministyczne
 
-Dokumentacja do projektu: 
+Dokumentacja do projektu: https://github.com/jkwiatk1/WSI-lab/blob/main/Lab3/doc/wsi_3_Jan_Kwiatkowski.pdf
 
 ## Polecenie
 
@@ -21,14 +21,11 @@ Zasady:
 
 
 ## Zaimplementowany algorytm
-```python
-def minMax():
-    pass 
-```
+Opisano w dokumentacji.
 
 
 ## Rozwiązanie
-* pass
+Opisano w dokumentacji.
  
 ## Dodatkowe uwagi:  
 * Kiedy budujemy drzewo minimax o głębokości D to warto sprawdzić różne wartości tego D<=D_Max.
