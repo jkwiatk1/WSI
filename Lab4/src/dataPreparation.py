@@ -16,11 +16,11 @@ def preprocess_dataset():
     xdf['persons'].replace('more', '5', inplace=True)
     xdf = xdf.apply(pd.to_numeric)
 
+    ydf2 = ydf
+
     le = LabelEncoder()
-    le.fit(ydf)
-    ydf = le.transform(ydf)
+    ydf = le.fit_transform(ydf.values.ravel())
 
-    X,y = xdf.values,ydf
-
+    X, y = xdf.values, ydf
     return X,y
 
