@@ -8,10 +8,25 @@ X, y = preprocess_dataset()
 
 class Test(unittest.TestCase):
 
-    def test_entropy_counts(self):
-        dataSet = [1,1,1,2,2,1,1,1,2,2]
-        self.assertEquals(entropy(dataSet), 0.5)
+    def test_entropy(self):
+        dataSet = [0,0,0,0,0,1,1,1,1,1]
+        self.assertEquals(entropy(dataSet), 1)
 
+
+    def test_entropy2(self):
+        dataSet = [0,0,0,0,0,0,1,1,1,1,1,1,1,1]
+        rounded_value = round(entropy(dataSet),2)
+        self.assertEquals(rounded_value, 0.99)
+
+    def test_entropy3(self):
+        dataSet = [0,0,0,0,0,0,1,1]
+        rounded_value = round(entropy(dataSet),2)
+        self.assertEquals(rounded_value, 0.81)
+
+    def test_entropy4(self):
+        dataSet = [0,0,0,0,1,1]
+        rounded_value = round(entropy(dataSet),2)
+        self.assertEquals(rounded_value, 0.92)
 
 
 if __name__ == '__main__':
