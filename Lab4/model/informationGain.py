@@ -35,11 +35,9 @@ def information_gain(Sx, Sy, a_idx, entropy_S):
     feature_vals_freqs = S_a_counts[1] / len(Sx_a)
 
     feature_vals_mask = [
-        [i
-         for i, x in enumerate(Sx_a)
+        [i for i, x in enumerate(Sx_a)
          if x == y]
-        for y in feature_vals
-    ]
+        for y in feature_vals]
     result = 0
     for mask, freq in zip(feature_vals_mask, feature_vals_freqs):
         result -= entropy(Sy[mask]) * freq
