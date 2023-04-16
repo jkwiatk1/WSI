@@ -4,6 +4,7 @@ import math
 
 import numpy as np
 
+
 class Metrics:
     def entropy(self, Sy):
         # lista z liczba wystapien obiektow kazdej klasy

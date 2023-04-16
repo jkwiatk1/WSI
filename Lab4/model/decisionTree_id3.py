@@ -5,8 +5,7 @@ import math
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 
-from informationGain import entropy
-from informationGain import information_gain
+from Metrics import Metrics
 
 
 class Node(object):
@@ -34,6 +33,7 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
         self.root = None
         self.max_depth = max_depth
         self.min_samples_split = min_samples_split
+        self.metrics = Metrics()
 
     def fit(self, X, y):
 
@@ -85,8 +85,8 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
             else:
                 raise Exception("Unkonwn value of  split_features_fun", self.split_features_fun)
 
-        entropy_S = entropy(Sy)
-        igs_A_sampled = [information_gain(Sx=Sx, Sy=Sy, a_idx=attr_idx, entropy_S=entropy_S) for attr_idx in A_to_split]
+        entropy_S = self.metrics.entropy(Sy)
+        igs_A_sampled = [self.metrics.information_gain(Sx=Sx, Sy=Sy, a_idx=attr_idx, entropy_S=entropy_S) for attr_idx in A_to_split]
 
         best_attr = A_to_split[np.argmax(igs_A_sampled)]
         if self.fnames:
