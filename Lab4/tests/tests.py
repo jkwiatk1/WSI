@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from model.dataPreparation import preprocess_dataset
-from model.informationGain import Metrics
+from model.Metrics import Metrics
 
 X, y = preprocess_dataset()
 metrics_test = Metrics()
