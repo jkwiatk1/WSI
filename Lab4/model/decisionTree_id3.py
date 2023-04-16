@@ -86,7 +86,8 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
                 raise Exception("Unkonwn value of  split_features_fun", self.split_features_fun)
 
         entropy_S = self.metrics.entropy(Sy)
-        igs_A_sampled = [self.metrics.information_gain(Sx=Sx, Sy=Sy, a_idx=attr_idx, entropy_S=entropy_S) for attr_idx in A_to_split]
+        igs_A_sampled = [self.metrics.information_gain(Sx=Sx, Sy=Sy, a_idx=attr_idx, entropy_S=entropy_S) for attr_idx
+                         in A_to_split]
 
         best_attr = A_to_split[np.argmax(igs_A_sampled)]
         if self.fnames:
