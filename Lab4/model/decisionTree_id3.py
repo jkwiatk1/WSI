@@ -1,11 +1,9 @@
 # author: Jan Kwiatkowski
 
-import math
-
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 
-from Metrics import Metrics
+from model.Metrics import Metrics
 
 
 class Node(object):
@@ -22,14 +20,10 @@ class Node(object):
 
 
 class ID3Tree(BaseEstimator, ClassifierMixin):
-    def __init__(self, split_features_fun="None", fnames=None, max_depth=10000000, classnames=None,
+    def __init__(self, fnames=None, max_depth=10000000, classnames=None,
                  min_samples_split=2):
-        '''
-        :param split_features_fun: możliwe wartości None, log2, sqrt
-        '''
         self.classnames = classnames
         self.fnames = fnames
-        self.split_features_fun = split_features_fun
         self.root = None
         self.max_depth = max_depth
         self.min_samples_split = min_samples_split
@@ -41,7 +35,7 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
 
         self._build_tree(A_ids, X, y, None)
 
-    def _build_tree(self, A_ids: np.ndarray, Sx: np.ndarray, Sy: np.ndarray, node: Node, depth=0):
+    def _build_tree(self, A_ids: np.ndarray, Sx: np.ndarray, Sy: np.ndarray, node:Node, depth=0):
         if not node:
             node = Node()
             if not self.root:
@@ -77,16 +71,8 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
             return node
 
         A_to_split = np.array(A_ids)
-        if self.split_features_fun != "None":
-            if self.split_features_fun == "log2":
-                A_to_split = np.random.choice(A_ids, int(math.log2(len(A_ids))))
-            elif self.split_features_fun == "sqrt":
-                A_to_split = np.random.choice(A_ids, int(math.sqrt(len(A_ids))))
-            else:
-                raise Exception("Unkonwn value of  split_features_fun", self.split_features_fun)
 
-        entropy_S = self.metrics.entropy(Sy)
-        igs_A_sampled = [self.metrics.information_gain(Sx=Sx, Sy=Sy, a_idx=attr_idx, entropy_S=entropy_S) for attr_idx
+        igs_A_sampled = [self.metrics.information_gain(Sx=Sx, Sy=Sy, feature_idx=attr_idx) for attr_idx
                          in A_to_split]
 
         best_attr = A_to_split[np.argmax(igs_A_sampled)]
