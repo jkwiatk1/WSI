@@ -23,11 +23,7 @@ print(r)
 #my tree
 print("Moje drzewo")
 my_tree = ID3Tree(max_depth = 1000, min_samples_split = 2)
-my_tree = my_tree.fit(X_iris,y_iris)
-# my_tree.fit(X_iris,y_iris)
-# y_pred = my_tree.predict(X_iris)
-# r2 = export_text(my_tree, feature_names=iris['feature_names'])
-# print(r2)
+my_tree.fit(X_iris,y_iris)
+y_pred = my_tree.predict(X_iris)
 
-
-# print(classification_report(y_iris, y_pred))
+print(classification_report(y_iris, y_pred))

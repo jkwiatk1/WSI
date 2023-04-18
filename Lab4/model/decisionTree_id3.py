@@ -30,12 +30,11 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
         self.metrics = Metrics()
 
     def fit(self, X, y):
-
+        # list of attributes
         A_ids = np.array(list(range(len(X[0, :]))))
+        self._build_tree(A_ids, Sx=X, Sy=y, node=None)
 
-        self._build_tree(A_ids, X, y, None)
-
-    def _build_tree(self, A_ids: np.ndarray, Sx: np.ndarray, Sy: np.ndarray, node:Node, depth=0):
+    def _build_tree(self, A_ids: np.ndarray, Sx: np.ndarray, Sy: np.ndarray, node: Node, depth=0):
         if not node:
             node = Node()
             if not self.root:
@@ -75,6 +74,7 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
         igs_A_sampled = [self.metrics.information_gain(Sx=Sx, Sy=Sy, feature_idx=attr_idx) for attr_idx
                          in A_to_split]
 
+        # best attribute to split
         best_attr = A_to_split[np.argmax(igs_A_sampled)]
         if self.fnames:
             node.fname = self.fnames[best_attr]

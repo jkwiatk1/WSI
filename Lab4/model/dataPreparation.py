@@ -15,6 +15,7 @@ def preprocess_dataset():
     xdf = pd.get_dummies(data=xdf, columns=['buying', 'maint', 'lug_boot', 'safety'])
     xdf['doors'].replace('5more', '5', inplace=True)
     xdf['persons'].replace('more', '5', inplace=True)
+    # Conversion to numeric values
     xdf = xdf.apply(pd.to_numeric)
 
     le = LabelEncoder()
