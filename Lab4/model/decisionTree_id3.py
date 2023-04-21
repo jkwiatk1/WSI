@@ -13,20 +13,19 @@ class Node(object):
         self.feature_idx = None
         self.children = []
         self.fname = None
-        # self.next = None
 
     def is_leaf_node(self):
         return self.predicted_class is not None
 
 
 class ID3Tree(BaseEstimator, ClassifierMixin):
-    def __init__(self, fnames=None, max_depth=10000000, classnames=None, min_samples_split=2):
-        self.classnames = classnames
-        self.fnames = fnames
+    def __init__(self, max_depth=100, min_samples_split=2, fnames=None, classnames=None):
         self.root = None
         self.max_depth = max_depth
         self.min_samples_split = min_samples_split
         self.metrics = Metrics()
+        self.fnames = fnames
+        self.classnames = classnames
 
     def fit(self, X, y):
         # list of attributes
@@ -38,7 +37,6 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
             node = Node()
             if not self.root:
                 self.root = node
-
 
         uniq_classes_freqs = np.unique(Sy, return_counts=True)
 
@@ -118,19 +116,19 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
 
     def predict(self, X):
         node = self.root
-        return np.array([self._pred(x=x, node=node) for x in X])
+        return np.array([self._pred(node=node, x=x) for x in X])
 
     def _pred(self, node: Node, x):
-
         if node.is_leaf_node():
             return node.predicted_class
 
         nchild = len(node.children)
 
         for child in node.children:
+            # wartość atrybutu feature_idx dla danego węzła z wartością odpowiadającą temu atrybutowi w wejściowym wierszu x
             if x[node.feature_idx] <= child.threshold:
                 return self._pred(child, x)
             else:
-                # dojdzie return funkcji, zwraca ostatnie dziecko
                 continue
+            # W przeciwnym razie (jeśli wartość jest większa niż próg), funkcja _pred() jest wywoływana dla następnego dziecka.
         return self._pred(node.children[nchild - 1], x)

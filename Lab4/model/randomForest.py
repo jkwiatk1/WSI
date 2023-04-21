@@ -4,11 +4,11 @@ import numpy as np
 from scipy import stats
 from sklearn.base import BaseEstimator, ClassifierMixin
 
-from decisionTree_id3 import ID3Tree
+from model.decisionTree_id3 import ID3Tree
 
 
 class RandomForest(BaseEstimator, ClassifierMixin):
-    def __init__(self, n_trees=10, max_depth=100, min_samples_split=2):
+    def __init__(self, n_trees=25, max_depth=100, min_samples_split=2):
 
         # hiperparametry drzewa ID3
         self.max_depth = max_depth
@@ -17,7 +17,6 @@ class RandomForest(BaseEstimator, ClassifierMixin):
         # hiperparametry lasu
         self.n_trees = n_trees
         self.trees = []
-
 
     def fit(self, X, y):
         # Reset
@@ -42,6 +41,6 @@ class RandomForest(BaseEstimator, ClassifierMixin):
         y = np.swapaxes(y, axis1=0, axis2=1)
 
         # Glosowanie wiekszosciowe
-        predicted_classes = stats.mode(y, axis=1)[0].reshape(-1)
+        predicted_classes = stats.mode(y, axis=1, keepdims=True)[0].reshape(-1)
 
         return predicted_classes
