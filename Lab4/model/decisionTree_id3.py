@@ -13,15 +13,14 @@ class Node(object):
         self.feature_idx = None
         self.children = []
         self.fname = None
-        self.next = None
+        # self.next = None
 
     def is_leaf_node(self):
         return self.predicted_class is not None
 
 
 class ID3Tree(BaseEstimator, ClassifierMixin):
-    def __init__(self, fnames=None, max_depth=10000000, classnames=None,
-                 min_samples_split=2):
+    def __init__(self, fnames=None, max_depth=10000000, classnames=None, min_samples_split=2):
         self.classnames = classnames
         self.fnames = fnames
         self.root = None
@@ -40,12 +39,12 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
             if not self.root:
                 self.root = node
 
-        # warunki zakończenia
-        # przekroczenie maksymalnej glebokosci
+
         uniq_classes_freqs = np.unique(Sy, return_counts=True)
 
-        if (depth >= self.max_depth or uniq_classes_freqs == 1 or len(
-                A_ids) < self.min_samples_split):
+        # warunki zakończenia
+        # przekroczenie maksymalnej glebokosci
+        if (depth >= self.max_depth or uniq_classes_freqs == 1 or len(A_ids) < self.min_samples_split):
             most_freq_class_idx = np.argmax(uniq_classes_freqs[1])
             node.predicted_class = int(uniq_classes_freqs[0][most_freq_class_idx])
             if self.classnames:
@@ -69,13 +68,11 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
                 node.fname = self.classnames[int(node.predicted_class)]
             return node
 
-        A_to_split = np.array(A_ids)
-
         igs_A_sampled = [self.metrics.information_gain(Sx=Sx, Sy=Sy, feature_idx=attr_idx) for attr_idx
-                         in A_to_split]
+                         in A_ids]
 
         # best attribute to split
-        best_attr = A_to_split[np.argmax(igs_A_sampled)]
+        best_attr = A_ids[np.argmax(igs_A_sampled)]
         if self.fnames:
             node.fname = self.fnames[best_attr]
 
@@ -88,7 +85,7 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
 
         for v in best_attr_values:
 
-            # partycjonowanie
+            # wyciaganie numerow indeksow dla danej wartosci atrybutu
             value_mask = self.create_mask(Sx, v, best_attr)
 
             if len(value_mask) == 0:
@@ -112,9 +109,9 @@ class ID3Tree(BaseEstimator, ClassifierMixin):
     def create_mask(self, Sx, val, attr_id):
         '''
         Tworzy maskę z indeksami Sx który ma wartości atrybutu attr_id = val. (Sx(attr_id).val = val)
-        :param Sx: zbiór atrybuty i wartości
+        :param Sx: zbiór atrybutow i wartości
         :param val: wartość atrybutu
-        :param attr_id: id atrybuty
+        :param attr_id: id atrybutu
         :return: maska indeksów Sx
         '''
         return [i for i, x in enumerate(Sx[:, attr_id]) if x == val]
