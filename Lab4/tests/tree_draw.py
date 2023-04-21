@@ -3,7 +3,6 @@ import graphviz
 
 from model.decisionTree_id3 import ID3Tree
 
-
 def plot_tree(node, dot=None, counter=0):
     if not dot:
         dot = graphviz.Digraph()
@@ -22,12 +21,14 @@ def plot_tree(node, dot=None, counter=0):
     return dot
 
 
-X = np.array(
-    [[1, 2, 3, 4], [1, 1, 2, 4], [2, 3, 4, 4], [1, 2, 2, 4], [2, 2, 3, 4], [3, 2, 2, 4], [1, 2, 2, 3],
-     [2, 2, 3, 3], [3, 3, 3, 3], [1, 1, 3, 3]])
-y = np.array([1, 2, 1, 2, 3, 1, 2, 2, 3, 1])
-my_tree = ID3Tree(max_depth=1000, min_samples_split=2)
-my_tree.fit(X, y)
-dot = plot_tree(my_tree.root)
-print(dot.source)
-dot.render('id3_tree', format='png', view=True)
+test_on = False
+if(test_on == True):
+    X = np.array(
+        [[1, 2, 3, 4], [1, 1, 2, 4], [2, 3, 4, 4], [1, 2, 2, 4], [2, 2, 3, 4], [3, 2, 2, 4], [1, 2, 2, 3],
+         [2, 2, 3, 3], [3, 3, 3, 3], [1, 1, 3, 3]])
+    y = np.array([1, 2, 1, 2, 3, 1, 2, 2, 3, 1])
+    my_tree = ID3Tree(max_depth=1000, min_samples_split=2)
+    my_tree.fit(X, y)
+    dot = plot_tree(my_tree.root)
+    print(dot.source)
+    dot.render('id3_tree', format='png', view=True)
