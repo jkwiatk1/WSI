@@ -1,6 +1,6 @@
 # Zadanie 4 - Klasyfikacja
 
-Dokumentacja do projektu: 
+Dokumentacja do projektu: https://github.com/jkwiatk1/WSI/blob/main/Lab4/docs/wsi_4_Jan_Kwiatkowski.pdf
 
 ## Polecenie
 
@@ -17,16 +17,9 @@ Zadanie klasyfikacji oceny zakupu samochodu na podstawie informacji o jego specy
 https://archive.ics.uci.edu/ml/datasets/Car+Evaluation 
 
 
-## Zaimplementowany algorytm
-```python
-def fun():
-    pass 
-```
-
-
 ## Rozwiązanie
-* pass
- 
+Opisano w dokumentacji.
+
 ## Dodatkowe uwagi:  
-* pass
+Opisano w dokumentacji.
 
