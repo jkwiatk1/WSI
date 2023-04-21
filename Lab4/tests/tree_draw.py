@@ -1,7 +1,9 @@
+# author: Jan Kwiatkowski
 import numpy as np
 import graphviz
 
 from model.decisionTree_id3 import ID3Tree
+
 
 def plot_tree(node, dot=None, counter=0):
     if not dot:
@@ -22,7 +24,7 @@ def plot_tree(node, dot=None, counter=0):
 
 
 test_on = False
-if(test_on == True):
+if (test_on == True):
     X = np.array(
         [[1, 2, 3, 4], [1, 1, 2, 4], [2, 3, 4, 4], [1, 2, 2, 4], [2, 2, 3, 4], [3, 2, 2, 4], [1, 2, 2, 3],
          [2, 2, 3, 3], [3, 3, 3, 3], [1, 1, 3, 3]])
