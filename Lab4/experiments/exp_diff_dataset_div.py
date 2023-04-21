@@ -7,7 +7,7 @@ from sklearn.metrics import classification_report, ConfusionMatrixDisplay
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 NB_TREES = 25
-X_cars,y_cars = preprocess_dataset(is_data_shuffle=False,sort_by_last_column=True)
+X_cars,y_cars = preprocess_dataset(is_data_shuffle=False,sort_by_last_column=False)
 
 
 print('test for 5% test, 95% train')
