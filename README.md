@@ -4,3 +4,4 @@
 * Lab2: Algorytmy genetyczne i ewolucyjne
 * Lab3: Dwuosobowe gry deterministyczne
 * Lab4: Klasyfikacja - las losowy
+* Lab5: Sieci neuronowe
